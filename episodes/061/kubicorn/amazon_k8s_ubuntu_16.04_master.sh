@@ -5,7 +5,7 @@
 # ------------------------------------------------------------------------------------------------------------------------
 
 # Specify the Kubernetes version to use.
-KUBERNETES_VERSION="1.13.2"
+KUBERNETES_VERSION="v1.13.2"
 KUBERNETES_CNI="0.6.0"
 
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
@@ -48,13 +48,13 @@ HOSTNAME=$(hostname -f)
 
 cat << EOF  > "/etc/kubicorn/kubeadm-config.yaml"
 apiEndpoint:
-  advertiseAddress: 10.0.0.163
-  bindPort: 443
+  advertiseAddress: ${PUBLICIP}
+  bindPort: ${PORT}
 apiVersion: kubeadm.k8s.io/v1alpha3
 bootstrapTokens:
 - groups:
   - system:bootstrappers:kubeadm:default-node-token
-  token: yt02gc.pz30izxzgf6bzzuj
+  token: ${TOKEN}
   ttl: 24h0m0s
   usages:
   - signing
@@ -94,7 +94,7 @@ etcd:
     image: ""
 imageRepository: k8s.gcr.io
 kind: ClusterConfiguration
-kubernetesVersion: v1.13.2
+kubernetesVersion: ${KUBERNETES_VERSION}
 networking:
   dnsDomain: cluster.local
   podSubnet: ""
