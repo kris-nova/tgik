@@ -1,0 +1,15 @@
+apiVersion: auditregistration.k8s.io/v1alpha1
+kind: AuditSink
+metadata:
+  name: tgik
+spec:
+  policy:
+    level: Metadata
+    stages:
+      - ResponseComplete
+  webhook:
+    throttle:
+      qps: 10
+      burst: 15
+    clientConfig:
+      url: "http://192.168.1.2:8765/k8s_audit"

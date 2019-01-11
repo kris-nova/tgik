@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: falco-service
+spec:
+  selector:
+    app: demo
+  ports:
+    - protocol: TCP
+      port: 8765
+      targetPort: 8765
